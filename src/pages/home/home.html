@@ -1,14 +1,16 @@
-<ion-header>
-  <ion-navbar>
+<ion-header >
+  <ion-navbar color="secondary">
     <ion-title>
-      Ionic Blank
+      My Notes
     </ion-title>
   </ion-navbar>
+  <ion-toolbar>
+    <ion-searchbar placeholder="Buscar"></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content>
+  <ion-list *ngIf="notes">
+    <button ion-item *ngFor="let note of notes">{{ note.title }}</button>
+  </ion-list>
 </ion-content>

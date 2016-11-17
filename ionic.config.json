@@ -2,5 +2,11 @@
   "name": "note-congress-app",
   "app_id": "",
   "v2": true,
-  "typescript": true
+  "typescript": true,
+  "proxies": [
+    {
+      "path": "/api",
+      "proxyUrl": "http://171.1.0.181:8000/api"
+    }
+  ]
 }

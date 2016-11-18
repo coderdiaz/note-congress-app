@@ -1,16 +1,29 @@
-<ion-header >
-  <ion-navbar color="secondary">
+<ion-header>
+  <ion-navbar color="danger">
     <ion-title>
-      My Notes
+      Mis notas
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only
+        (click) = "openModal()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
-  <ion-toolbar>
-    <ion-searchbar placeholder="Buscar"></ion-searchbar>
-  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list *ngIf="notes">
-    <button ion-item *ngFor="let note of notes">{{ note.title }}</button>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <ion-item *ngFor="let note of items"
+      (click) = "goToDetail(note)">
+      {{ note.title }}
+      <ion-icon name="arrow-forward" item-right></ion-icon>
+    </ion-item>
   </ion-list>
+
 </ion-content>

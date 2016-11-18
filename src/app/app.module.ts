@@ -2,12 +2,16 @@ import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { NoteProvider } from '../providers/note-provider';
+import { DetailsNotePage} from '../pages/details-note/details-note';
+import { ModalPage } from '../pages/modal/modal';
+import { Data } from '../providers/data';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    DetailsNotePage,
+    ModalPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -15,8 +19,10 @@ import { NoteProvider } from '../providers/note-provider';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    DetailsNotePage,
+    ModalPage
   ],
-  providers: [ NoteProvider ]
+  providers: [ Data ]
 })
 export class AppModule {}

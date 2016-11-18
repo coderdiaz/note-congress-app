@@ -1,29 +1,47 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { NoteProvider } from '../../providers/note-provider';
-import { Note } from '../../Note';
+import { Component } from '@angular/core';
+
+import { NavController, ModalController } from 'ionic-angular';
+import { DetailsNotePage } from '../details-note/details-note';
+import { ModalPage } from '../modal/modal';
+import { Data } from '../../providers/data';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers: [ NoteProvider ]
+  providers: [ Data ]
 })
 export class HomePage {
 
-  private notes: Note[] = [];
+  private items: any;
 
   constructor(public navCtrl: NavController,
-    private noteProvider: NoteProvider) {}
+    public modalCtrl: ModalController,
+    public sdata: Data) {
 
-  ngOnInit(): void {
-    this.noteProvider.getNotes()
-      .then(response => {
-        this.notes = response;
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('Ah ocurrido un problema');
-      });
   }
 
+  ngOnInit() {
+    this.items = this.sdata.allNotes();
+  }
+
+  goToDetail(note) {
+    this.navCtrl.push(DetailsNotePage, {
+      'note': note
+    });
+  }
+
+  openModal() {
+    console.log('HI modal');
+    let modal = this.modalCtrl.create(ModalPage);
+    modal.present();
+  }
+
+  doRefresh(refresher) {
+    setTimeout(() => {
+      this.items = this.sdata.allNotes();
+      console.log(this.items);
+      refresher.complete();
+    }, 2000);
+  }
+  
 }

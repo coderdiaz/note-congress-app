@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ViewController } from 'ionic-angular';
+import { NavController, ViewController, NavParams } from 'ionic-angular';
 import { Data } from '../../providers/data';
 
 /*
@@ -16,12 +16,24 @@ export class ModalPage {
 
   private form: { title?: string, description?: string } = {};
   public submitted = false;
+  public type: number;
 
   constructor(
     public navCtrl: NavController,
     public viewCtrl: ViewController,
-    public sdata: Data
-  ) {}
+    public sdata: Data,
+    public params: NavParams
+  ) {
+    
+    let data = this.params.get('data');
+    this.type = this.params.get('type');
+
+    if(data != null) {
+      this.form.title = data.title;
+      this.form.description = data.description;
+    }
+
+  }
 
   ionViewDidLoad() {
     console.log('Hello ModalPage Page');
@@ -32,6 +44,13 @@ export class ModalPage {
   }
 
   create(form) {
+    this.submitted = true;
+    if(form.valid) {
+      this.viewCtrl.dismiss(this.form);
+    }
+  }
+
+  edit(form) {
     this.submitted = true;
     if(form.valid) {
       this.viewCtrl.dismiss(this.form);

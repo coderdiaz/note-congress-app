@@ -7,7 +7,8 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Nueva nota</ion-title>
+    <ion-title *ngIf="type==1">Nueva nota</ion-title>
+    <ion-title *ngIf="type==2">Editar nota</ion-title>
     <ion-buttons end (click)="dismiss()">
       <button ion-button icon-only>
         <ion-icon name="close"></ion-icon>
@@ -37,8 +38,10 @@
       </ion-item>
     </ion-list>
     <div padding>
-      <button ion-button full type="submit" color="danger"
-      (click)="create(loginForm)">Guardar nota</button>
+      <button ion-button full type="submit" color="danger" *ngIf="type==1"
+      (click)="create(loginForm)">Save</button>
+      <button ion-button full type="submit" color="danger" *ngIf="type==2"
+      (click)="edit(loginForm)">Edit</button>
     </div>
   </form>
 </ion-content>

@@ -5,7 +5,7 @@
     </ion-title>
     <ion-buttons end>
       <button ion-button icon-only
-        (click) = "openModal()">
+        (click) = "openModal(null, null, 1)">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-buttons>
@@ -14,11 +14,14 @@
 
 <ion-content>
   <ion-list>
-    <button ion-item *ngFor="let note of items"
-      (click) = "goToDetail(note)">
+    <button ion-item *ngFor="let note of items; let i = index"
+      (click)="goToDetail(note)" (press)="openMenu($event, i)">
       <h2>{{ note.title }}</h2>
       <ion-icon name="arrow-forward" showWhen="android,windows" item-right></ion-icon>
     </button>
+    <ion-item *ngIf="items.length == 0">
+      No hay notas disponibles
+    </ion-item>
   </ion-list>
 
 </ion-content>

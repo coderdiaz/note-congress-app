@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NavController, ModalController } from 'ionic-angular';
+import { Platform, NavController, ModalController, ActionSheetController } from 'ionic-angular';
 import { DetailsNotePage } from '../details-note/details-note';
 import { ModalPage } from '../modal/modal';
 import { Data } from '../../providers/data';
@@ -15,9 +15,11 @@ export class HomePage {
   private items: any;
 
   constructor(
+    public platform: Platform,
     public navCtrl: NavController,
     public modalCtrl: ModalController,
-    public sdata: Data
+    public sdata: Data,
+    public actionsheetCtrl: ActionSheetController
   ) {}
 
   ngOnInit() {
@@ -30,14 +32,52 @@ export class HomePage {
     });
   }
 
-  openModal() {
-    let modal = this.modalCtrl.create(ModalPage);
+  openModal(data=null, index=null, type) {
+    let modal = this.modalCtrl.create(ModalPage, { 'data': data, 'type': type });
     modal.onDidDismiss(result => {
       if(typeof result != 'undefined') {
-        this.items.push(result);
+        if(type == 1) {
+          this.items.push(result);
+        } else {
+          this.items[index] = result;
+        }
       }
     });
     modal.present();
+  }
+
+  openMenu(e, index) {
+    let actionSheet = this.actionsheetCtrl.create({
+      title: 'Options',
+      cssClass: 'action-sheets-basic-page',
+      buttons: [
+        {
+          text: 'Delete',
+          role: 'destructive',
+          icon: !this.platform.is('ios') ? 'trash' : null,
+          handler: () => {
+            this.items.splice(index, 1);
+          }
+        },
+        {
+          text: 'Edit',
+          icon: !this.platform.is('ios') ? 'create' : null,
+          handler: () => {
+            this.openModal(this.items[index], index, 2);
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          icon: !this.platform.is('ios') ? 'close' : null,
+          handler: () => {
+            console.info('Cancel sheet');
+          }
+        }
+      ]
+    });
+
+    actionSheet.present();
   }
   
 }

@@ -20,19 +20,18 @@ export class Data {
       {
         'title': 'Nota 1',
         'description': "Hola mundo",
-        'created_at': '2016-11-17 13:33:00'
       },
       {
         'title': 'Nota 2',
-        'description': "2016-11-17 13:33:00"
+        'description': "Soy una nueva nota"
       },
       {
         'title': 'Nota 3',
-        'description': "2016-11-17 13:33:00"
+        'description': "League of legends"
       },
       {
         'title': 'Nota 4',
-        'description': "2016-11-17 13:33:00"
+        'description': "Call of duty"
       },
     ];
   }

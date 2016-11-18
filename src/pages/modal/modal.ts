@@ -14,31 +14,28 @@ import { Data } from '../../providers/data';
 })
 export class ModalPage {
 
-  private form: any;
+  private form: { title?: string, description?: string } = {};
+  public submitted = false;
 
-  constructor(public navCtrl: NavController,
+  constructor(
+    public navCtrl: NavController,
     public viewCtrl: ViewController,
-    public sdata: Data) {
-      
-      this.form = {
-        'title': '',
-        'description': ''
-      };
-
-    }
+    public sdata: Data
+  ) {}
 
   ionViewDidLoad() {
     console.log('Hello ModalPage Page');
   }
 
   dismiss() {
-    console.log('OK!');
     this.viewCtrl.dismiss();
   }
 
-  create() {
-    this.sdata.createNote(this.form);
-    this.viewCtrl.dismiss();
+  create(form) {
+    this.submitted = true;
+    if(form.valid) {
+      this.viewCtrl.dismiss(this.form);
+    }
   }
 
 }

@@ -13,17 +13,13 @@
 </ion-header>
 
 <ion-content>
-
-  <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
-
   <ion-list>
-    <ion-item *ngFor="let note of items"
+    <button ion-item *ngFor="let note of items"
       (click) = "goToDetail(note)">
-      {{ note.title }}
-      <ion-icon name="arrow-forward" item-right></ion-icon>
-    </ion-item>
+      <h2>{{ note.title }}</h2>
+      <h3>2016-11-18 13:33:00</h3>
+      <ion-icon name="arrow-forward" showWhen="android,windows" item-right></ion-icon>
+    </button>
   </ion-list>
 
 </ion-content>

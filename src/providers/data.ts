@@ -13,34 +13,32 @@ export class Data {
 
   private notes: any;
 
-  constructor(public http: Http) {
+  constructor(
+    public http: Http
+  ) {
     this.notes = [
       {
         'title': 'Nota 1',
-        'description': "Hola mundo"
+        'description': "Hola mundo",
+        'created_at': '2016-11-17 13:33:00'
       },
       {
         'title': 'Nota 2',
-        'description': "Soy una nueva nota"
+        'description': "2016-11-17 13:33:00"
       },
       {
         'title': 'Nota 3',
-        'description': "League of legends"
+        'description': "2016-11-17 13:33:00"
       },
       {
         'title': 'Nota 4',
-        'description': "Call of duty"
+        'description': "2016-11-17 13:33:00"
       },
     ];
   }
 
   allNotes() {
     return this.notes;
-  }
-
-  createNote(note) {
-    this.notes.push(note);
-    console.log(this.notes);
   }
 
 }

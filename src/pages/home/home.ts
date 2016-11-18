@@ -14,11 +14,11 @@ export class HomePage {
 
   private items: any;
 
-  constructor(public navCtrl: NavController,
+  constructor(
+    public navCtrl: NavController,
     public modalCtrl: ModalController,
-    public sdata: Data) {
-
-  }
+    public sdata: Data
+  ) {}
 
   ngOnInit() {
     this.items = this.sdata.allNotes();
@@ -31,17 +31,13 @@ export class HomePage {
   }
 
   openModal() {
-    console.log('HI modal');
     let modal = this.modalCtrl.create(ModalPage);
+    modal.onDidDismiss(result => {
+      if(typeof result != 'undefined') {
+        this.items.push(result);
+      }
+    });
     modal.present();
-  }
-
-  doRefresh(refresher) {
-    setTimeout(() => {
-      this.items = this.sdata.allNotes();
-      console.log(this.items);
-      refresher.complete();
-    }, 2000);
   }
   
 }

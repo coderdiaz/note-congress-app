@@ -14,9 +14,9 @@ import { Data } from '../../providers/data';
 })
 export class ModalPage {
 
-  private form: { title?: string, description?: string } = {};
-  public submitted = false;
-  public type: number;
+  form: { title?: string, description?: string, id?: number } = {};
+  submitted = false;
+  type: number;
 
   constructor(
     public navCtrl: NavController,
@@ -31,6 +31,7 @@ export class ModalPage {
     if(data != null) {
       this.form.title = data.title;
       this.form.description = data.description;
+      this.form.id = data.id;
     }
 
   }
@@ -46,13 +47,19 @@ export class ModalPage {
   create(form) {
     this.submitted = true;
     if(form.valid) {
-      this.viewCtrl.dismiss(this.form);
+      this.sdata.createNote(this.form).then(response => {
+          console.log(response);
+          this.viewCtrl.dismiss(response.note);
+      });
     }
   }
 
   edit(form) {
     this.submitted = true;
     if(form.valid) {
+      this.sdata.editNote(form, form.id).then(response => {
+        this.viewCtrl.dismiss(response.note);
+      });
       this.viewCtrl.dismiss(this.form);
     }
   }

@@ -6,7 +6,7 @@
   "proxies": [
     {
       "path": "/api",
-      "proxyUrl": "http://171.1.0.181:8000/api"
+      "proxyUrl": "http://api.congreso.dev/api"
     }
   ]
 }

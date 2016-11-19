@@ -13,10 +13,10 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class DetailsNotePage {
 
-  private note: any;
+  note: any;
 
   constructor(public navCtrl: NavController,
-    private navParams: NavParams) {
+    public navParams: NavParams) {
       this.note = this.navParams.get('note');
     }
 

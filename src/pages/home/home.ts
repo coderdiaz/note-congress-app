@@ -4,6 +4,7 @@ import { Platform, NavController, ModalController, ActionSheetController } from 
 import { DetailsNotePage } from '../details-note/details-note';
 import { ModalPage } from '../modal/modal';
 import { Data } from '../../providers/data';
+import { Note } from '../../Note';
 
 @Component({
   selector: 'page-home',
@@ -12,7 +13,7 @@ import { Data } from '../../providers/data';
 })
 export class HomePage {
 
-  private items: any;
+  items: Note[] = [];
 
   constructor(
     public platform: Platform,
@@ -23,7 +24,13 @@ export class HomePage {
   ) {}
 
   ngOnInit() {
-    this.items = this.sdata.allNotes();
+    this.sdata.allNotes()
+    .then(response => {
+      this.items = response;
+    }).catch(error => {
+      console.error('Error:', error);
+      alert('Ocurrio un problema');
+    });
   }
 
   goToDetail(note) {

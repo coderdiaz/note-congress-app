@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
+import { Note } from '../Note';
 
 /*
   Generated class for the Data provider.
@@ -11,33 +13,33 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class Data {
 
-  private notes: any;
+  private api_url: string;
 
   constructor(
     public http: Http
   ) {
-    this.notes = [
-      {
-        'title': 'Nota 1',
-        'description': "Hola mundo",
-      },
-      {
-        'title': 'Nota 2',
-        'description': "Soy una nueva nota"
-      },
-      {
-        'title': 'Nota 3',
-        'description': "League of legends"
-      },
-      {
-        'title': 'Nota 4',
-        'description': "Call of duty"
-      },
-    ];
+    this.api_url = '/api';
   }
 
-  allNotes() {
-    return this.notes;
+  allNotes(): Promise<Note[]> {
+    return this.http.get(`${this.api_url}/notes`)
+      .toPromise()
+      .then(response => JSON.parse(response['_body']) as Note)
+      .catch(this.handleError);
+  }
+
+  createNote(form): Promise<any> {
+    return this.http.post(`${this.api_url}/notes`, form)
+      .toPromise()
+      .then(response => JSON.parse(response['_body']))
+      .catch(this.handleError);
+  }
+
+  editNote(form, id) {}
+
+  private handleError(error: any): Promise<any> {
+    console.error('A ocurrido un error', error);
+    return Promise.reject(error.message || error);
   }
 
 }

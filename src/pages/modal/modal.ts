@@ -57,10 +57,9 @@ export class ModalPage {
   edit(form) {
     this.submitted = true;
     if(form.valid) {
-      this.sdata.editNote(form, form.id).then(response => {
+      this.sdata.editNote(this.form).then(response => {
         this.viewCtrl.dismiss(response.note);
       });
-      this.viewCtrl.dismiss(this.form);
     }
   }
 

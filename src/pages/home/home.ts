@@ -23,7 +23,7 @@ export class HomePage {
     public actionsheetCtrl: ActionSheetController
   ) {}
 
-  ngOnInit() {
+  ionViewDidLoad() {
     this.sdata.allNotes()
     .then(response => {
       this.items = response;
@@ -63,7 +63,10 @@ export class HomePage {
           role: 'destructive',
           icon: !this.platform.is('ios') ? 'trash' : null,
           handler: () => {
-            this.items.splice(index, 1);
+            let id = this.items[index].id;
+            this.sdata.deleteNote(id).then(response => {
+              this.items.splice(index, 1);
+            });
           }
         },
         {
